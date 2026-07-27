@@ -181,6 +181,10 @@ export default function Home() {
   const handleUpload = async (uploadedData: any[]) => {
     for (let i = 0; i < uploadedData.length; i++) {
       const row = uploadedData[i];
+      if (row.period_start && row.period_end && new Date(row.period_start) > new Date(row.period_end)) {
+        alert(`Row ${i + 1} (${row.building_name}): Invalid date range. Start date cannot be after end date.`);
+        continue;
+      }
       // Deliberately inject a tampered name randomly (~15% chance) to trigger the auditor rejection flow
       const isTampered = Math.random() < 0.15;
       const name = isTampered ? `${row.building_name} (Tampered)` : row.building_name;
@@ -218,6 +222,10 @@ export default function Home() {
 
   const handleManualSubmit = async () => {
     if (!manualEntry.building_name || !manualEntry.baseline_kwh) return;
+    if (manualEntry.period_start && manualEntry.period_end && new Date(manualEntry.period_start) > new Date(manualEntry.period_end)) {
+      alert("Error: Start Date cannot be after End Date.");
+      return;
+    }
     
     try {
       const bRes = await fetch(`/api/buildings`, {

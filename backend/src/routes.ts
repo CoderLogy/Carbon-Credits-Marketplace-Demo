@@ -70,6 +70,10 @@ routes.post('/calculate', async (req: Request, res: Response) => {
   const { buildingId, periodStart, periodEnd, baselineKwh, actualKwh, emissionFactor, emissionFactorSource = 'Custom' } = req.body;
   const db = getDb();
   
+  if (new Date(periodStart) > new Date(periodEnd)) {
+    return res.status(400).json({ success: false, message: 'Invalid date range: Start date cannot be after end date.' });
+  }
+  
   // Prevent double-counting: Check if a report for this building name and time period already exists
   const existingReport = await db.get(`
     SELECT e.id 
