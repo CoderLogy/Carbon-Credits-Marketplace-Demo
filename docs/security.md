@@ -140,8 +140,9 @@ exec(`${forgeCmd} test`, { cwd: contractsDir }, ...)
 | Impact | High (3) — creates impression of on-chain guarantees that do not exist |
 | **Risk** | **High** — OWASP A04: Insecure Design |
 
-The "Mint & List" action only sets `status = 'issued'` in SQLite. The `EclimAiCarbonCredit.sol` contract exists but is not wired into the backend.
-- **Fix:** Integrate `ethers.js` or `viem`. On `/projects/:id/approve`, trigger a real `contract.mintCredit()` transaction using an admin wallet loaded from `.env` (never committed to git).
+The "Mint & List" action only updates the SQLite `status` column to `'issued'`. The `EclimAiCarbonCredit.sol` contract exists and is tested with Foundry but is not wired into the backend mint flow.
+- **Risk:** The prototype creates the impression of on-chain guarantees that do not exist. Any demo to investors or evaluators must clearly communicate this gap — the token issuance is fully simulated.
+- **Fix:** Integrate `ethers.js` or `viem` into the backend. On `/projects/:id/approve`, trigger a real `contract.mintCredit()` transaction using an admin wallet loaded from `.env` (never committed to git).
 
 ---
 
@@ -152,8 +153,9 @@ The "Mint & List" action only sets `status = 'issued'` in SQLite. The `EclimAiCa
 | Impact | Medium (2) — no real integrity guarantee; Merkle root check is cosmetic only |
 | **Risk** | **High** — OWASP A04: Insecure Design |
 
-The random tamper flag (`(Tampered)` suffix) is injected purely in the browser. The backend performs no independent hash validation.
-- **Fix:** Move Merkle root generation server-side in `/api/calculate`. Accept an `integrity_hash` from the CSV upload, recompute server-side, and reject on mismatch.
+The "random hash failure" during CSV import is simulated by randomly appending `(Tampered)` to a building name in the frontend. The backend has no independent hash generation or validation — it accepts whatever name the frontend sends.
+- **Risk:** There is no real data integrity check. A production system must construct the Merkle tree of the raw CSV rows server-side and store the root immutably on first write. On any subsequent read, recompute and compare. If they differ, reject and flag the record.
+- **Fix:** Move Merkle root generation to the backend `/api/calculate` route. Accept an optional `integrity_hash` field from the CSV, recompute server-side, compare, and reject on mismatch.
 
 ---
 
@@ -207,7 +209,8 @@ The random tamper flag (`(Tampered)` suffix) is injected purely in the browser. 
 | Impact | Medium (2) — memory exhaustion and slow queries at scale |
 | **Risk** | **Medium** — OWASP A04: Insecure Design |
 
-- **Fix:** Add `LIMIT`/`OFFSET` query parameters. Index `projects.status`, `buildings.owner_id`, `audit_log.project_id`.
+The `GET /api/projects` route returns all rows with a four-table JOIN with no row limit or pagination. With thousands of projects this becomes a slow, memory-hungry query that can hang the server.
+- **Fix:** Add `LIMIT` and `OFFSET` query parameters. Add database indexes on `projects.status`, `buildings.owner_id`, and `audit_log.project_id`.
 
 ---
 
@@ -233,6 +236,8 @@ JSON.stringify(req.body) // stored in calculations table
 | Impact | Medium (2) — no AML/CFT enforcement; regulatory risk in EU and US |
 | **Risk** | **Medium** — Regulatory / OWASP A07 |
 
+The KYC flow on the Market Buyer page accepts any company name and immediately grants `kycCompleted = true`. There is no identity verification, document check, or third-party KYC provider involved.
+- **Risk:** This is fine for a demo but must never reach production without integrating a real KYC provider. Selling carbon credits without proper KYC/AML checks could violate EU AMLD and US FinCEN regulations, exposing the platform to regulatory shutdown.
 - **Fix:** Integrate a real KYC provider (Jumio, Onfido, or Veriff) before any production deployment.
 
 ---
@@ -242,8 +247,8 @@ JSON.stringify(req.body) // stored in calculations table
 > Risk = Low Likelihood × Low/Medium Impact
 
 ### L-1: No Wallet Signature Verification
-Wallet address accepted from `req.body` with no cryptographic proof of ownership.
-- **Fix:** Require ECDSA signature (`eth_sign` / EIP-712) to prove wallet control.
+The `/api/auth/claim-admin` endpoint accepts `walletAddress` from `req.body` and trusts it without any cryptographic proof that the caller actually controls that wallet. Anyone can claim any wallet address.
+- **Fix:** Require ECDSA signature (`eth_sign` / EIP-712) to prove wallet ownership before any role is assigned.
 
 ### L-2: Emission Factors Hardcoded in Frontend
 SEAI 2025 (`0.2241`) and DEFRA 2025 (`0.1280`) are hardcoded in UI dropdowns. They change annually.
