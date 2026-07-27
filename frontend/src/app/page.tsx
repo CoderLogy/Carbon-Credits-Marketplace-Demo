@@ -32,7 +32,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Info, Leaf, CheckCircle2, Factory, Zap, Activity, AlertTriangle, FileText, Upload, ShieldCheck, ShieldAlert, Download } from 'lucide-react';
 
 export default function Home() {
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+
   
   // ============================================================================
   // 1. GLOBAL STATE & CONTEXT
@@ -79,7 +79,7 @@ export default function Home() {
 
   const fetchBackendData = async () => {
     try {
-      const infoRes = await fetch(`${API_BASE_URL}/api/system/info`).catch(() => null);
+      const infoRes = await fetch(`/api/system/info`).catch(() => null);
       if (infoRes) {
         const info = await infoRes.json();
         const savedBoot = localStorage.getItem('serverBootTime');
@@ -96,7 +96,7 @@ export default function Home() {
         }
       }
 
-      const res = await fetch(`${API_BASE_URL}/api/projects`);
+      const res = await fetch(`/api/projects`);
       const projects = await res.json();
       
       const mappedData = await Promise.all(projects.map(async (p: any) => ({
@@ -185,14 +185,14 @@ export default function Home() {
       const isTampered = Math.random() < 0.15;
       const name = isTampered ? `${row.building_name} (Tampered)` : row.building_name;
       try {
-        const bRes = await fetch(`${API_BASE_URL}/api/buildings`, {
+        const bRes = await fetch(`/api/buildings`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ walletAddress: '0x123', name: name, location: row.location || 'Unknown' })
         });
         const bData = await bRes.json();
         
-        const cRes = await fetch(`${API_BASE_URL}/api/calculate`, {
+        const cRes = await fetch(`/api/calculate`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -220,7 +220,7 @@ export default function Home() {
     if (!manualEntry.building_name || !manualEntry.baseline_kwh) return;
     
     try {
-      const bRes = await fetch(`${API_BASE_URL}/api/buildings`, {
+      const bRes = await fetch(`/api/buildings`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ walletAddress: '0x123', name: manualEntry.building_name, location: manualEntry.location || 'Unknown' })
@@ -230,7 +230,7 @@ export default function Home() {
         const factorSource = manualEntry.emission_factor === '0.2241' ? 'SEAI 2025 (Ireland)' : 
                              manualEntry.emission_factor === '0.1280' ? 'DEFRA 2025 (UK)' : 'Custom';
                              
-        const cRes = await fetch(`${API_BASE_URL}/api/calculate`, {
+        const cRes = await fetch(`/api/calculate`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -261,7 +261,7 @@ export default function Home() {
     const row = data[rowIndex];
     if (row.projectId) {
       try {
-        await fetch(`${API_BASE_URL}/api/projects/${row.projectId}/submit`, { 
+        await fetch(`/api/projects/${row.projectId}/submit`, { 
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ attestationAgreed: attestations[rowIndex] || false })
@@ -275,7 +275,7 @@ export default function Home() {
     const req = pendingIssuances[index];
     if (req.projectId) {
       try {
-        await fetch(`${API_BASE_URL}/api/projects/${req.projectId}/approve`, { method: 'POST' });
+        await fetch(`/api/projects/${req.projectId}/approve`, { method: 'POST' });
       } catch (e) { console.error(e); }
     }
     await fetchBackendData();
@@ -285,7 +285,7 @@ export default function Home() {
     const req = pendingIssuances[index];
     if (req.projectId) {
       try {
-        await fetch(`${API_BASE_URL}/api/projects/${req.projectId}/reject`, { method: 'POST' });
+        await fetch(`/api/projects/${req.projectId}/reject`, { method: 'POST' });
       } catch (e) { console.error(e); }
     }
     await fetchBackendData();
@@ -293,7 +293,7 @@ export default function Home() {
 
   const handleViewAuditLog = async (projectId: string) => {
     try {
-      const res = await fetch(`${API_BASE_URL}/api/projects/${projectId}/audit-log`);
+      const res = await fetch(`/api/projects/${projectId}/audit-log`);
       const logs = await res.json();
       setAuditLogs(logs);
       setIsAuditLogOpen(true);
@@ -303,7 +303,7 @@ export default function Home() {
   };
   const handleCancelListing = async (id: string) => {
     try {
-      await fetch(`${API_BASE_URL}/api/projects/${id}/cancel`, { 
+      await fetch(`/api/projects/${id}/cancel`, { 
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ role })
@@ -318,7 +318,7 @@ export default function Home() {
   const handleTransfer = async (id: string) => {
     if (!transferRecipient) return;
     try {
-      await fetch(`${API_BASE_URL}/api/projects/${id}/transfer`, {
+      await fetch(`/api/projects/${id}/transfer`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ recipient: transferRecipient })
@@ -339,7 +339,7 @@ export default function Home() {
     const customPrice = listingPrices[index] ? parseFloat(listingPrices[index]) : null;
     
     try {
-      await fetch(`${API_BASE_URL}/api/projects/${req.projectId}/issue`, { 
+      await fetch(`/api/projects/${req.projectId}/issue`, { 
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ price: customPrice })
@@ -361,7 +361,7 @@ export default function Home() {
     }
     
     try {
-      await fetch(`${API_BASE_URL}/api/projects/${id}/buy`, {
+      await fetch(`/api/projects/${id}/buy`, {
         method: 'POST'
       });
       
@@ -380,7 +380,7 @@ export default function Home() {
     const cost = credit.tCO2e * credit.price;
     
     try {
-      await fetch(`${API_BASE_URL}/api/projects/${id}/retire`, {
+      await fetch(`/api/projects/${id}/retire`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ beneficiary, purpose })
@@ -410,7 +410,7 @@ export default function Home() {
     if (!price || isNaN(parseFloat(price))) return;
     
     try {
-      await fetch(`${API_BASE_URL}/api/projects/${id}/relist`, {
+      await fetch(`/api/projects/${id}/relist`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ price: parseFloat(price) })
