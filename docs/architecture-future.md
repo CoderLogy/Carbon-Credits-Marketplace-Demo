@@ -194,7 +194,7 @@ flowchart TD
 EclimAi is architected to capture both immediate software revenue and long-term asset value.
 
 
-> **Note:** Open-source tools such as Hedera Guardian (generic dMRV policy engine) and Thallo (Verra-compliant registry bridge) exist in adjacent infrastructure space. EclimAi is the vertical application layer—providing domain-specific energy calculations, IoT integrations, and a native marketplace—built above such components.
+> **Note:** Open-source tools such as Hedera Guardian (generic dMRV policy engine) and Thallo (Verra-compliant registry bridge) exist in adjacent infrastructure space. A future production version of EclimAi could integrate with these tools to accelerate development. EclimAi would operate as the vertical application layer, providing domain-specific energy calculations, IoT integrations, and a native marketplace on top.
 
 ### Revenue & Growth Model
 

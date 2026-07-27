@@ -12,15 +12,15 @@
 [![Solidity](https://img.shields.io/badge/Solidity-0.8.20-363636?logo=solidity&logoColor=white)](https://docs.soliditylang.org)
 [![Foundry](https://img.shields.io/badge/Testing-Foundry-red)](#)
 
-## The EclimAi Vision & Business Model
+## The EclimAi Business Model
 
-The traditional voluntary carbon market is plagued by double-counting, opaque methodologies, and unauthorized tokenization. EclimAi solves this by acting as the foundational infrastructure connecting Project Developers, Validation Bodies (VVBs), and legacy Registries. 
+The voluntary carbon market faces challenges with double-counting, fragmented methodologies, and unauthorized tokenization. EclimAi addresses these issues by providing foundational infrastructure that connects Project Developers, Validation Bodies (VVBs), and legacy Registries. 
 
-Our dual-pronged commercial strategy is designed for scalable adoption:
-1. **Data Pipeline SaaS:** A highly secure Web2 processing engine that automates MRV calculations and cryptographic hashing. We charge building owners a recurring license fee while providing VVBs with "audit-ready" data.
-2. **"Discount-for-Credits" Asset Generation:** Offering upfront smart HVAC hardware subsidies in exchange for contractual rights to 100% of the generated carbon savings, allowing EclimAi to tokenize and sell premium credits directly to institutional buyers.
+Our commercial strategy focuses on two areas:
+1. **Data Pipeline SaaS:** A secure Web2 processing engine that automates MRV calculations and cryptographic hashing. We charge building owners a recurring license fee while providing VVBs with audit-ready data.
+2. **"Discount-for-Credits" Asset Generation:** Offering upfront smart HVAC hardware subsidies in exchange for contractual rights to the generated carbon savings, allowing EclimAi to tokenize and sell these credits directly to institutional buyers.
 
-## Architectural Breakthroughs
+## System Architecture
 
 ### Current Implementation: End-to-End Traceability
 
@@ -69,7 +69,7 @@ Our dual-pronged commercial strategy is designed for scalable adoption:
 | Infra | Kubernetes (EKS) + Terraform | Container orchestration and IaC |
 | Observability | Prometheus + Grafana + Cloudflare WAF | Metrics, logging, DDoS protection |
 
-> **Ecosystem Context:** [Hedera Guardian](https://github.com/hashgraph/guardian) is an open-source dMRV policy-as-code engine (generic toolkit). [Thallo](https://www.thallo.io) provides Verra-compliant registry bridge infrastructure. EclimAi is the vertical application layer built above both — providing IPMVP-specific energy calculations, IoT hardware integrations, an AI sanitization pipeline, and a native marketplace on top.
+> **Ecosystem Context:** While EclimAi is a standalone prototype, a full production deployment could integrate with open-source tools like [Hedera Guardian](https://github.com/hashgraph/guardian) (for generic dMRV policy-as-code) and [Thallo](https://www.thallo.io) (for Verra-compliant registry bridging) to accelerate development. In such a stack, EclimAi would operate as the vertical application layer, providing IPMVP-specific energy calculations, IoT hardware integrations, an AI sanitization pipeline, and a native marketplace on top.
 
 ## Documentation
 
@@ -80,6 +80,7 @@ Our dual-pronged commercial strategy is designed for scalable adoption:
 | [Known Limitations](known-limitations.md) | Prototype scope, simulation disclaimers |
 | [Security Audit](docs/security.md) | Vulnerability findings, risk register, compliance notes |
 | [PRD](PRD.md) | Functional requirements and user stories |
+| [Citations](docs/citations.md) | Market size figures and research references |
 
 ## Getting Started
 
