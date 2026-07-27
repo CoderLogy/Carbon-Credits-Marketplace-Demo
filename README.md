@@ -79,7 +79,7 @@ Our commercial strategy focuses on two areas:
 | [Future Architecture](docs/architecture-future.md) | ZKP, Hyperledger Fabric, Chainlink roadmap |
 | [Known Limitations](known-limitations.md) | Prototype scope, simulation disclaimers |
 | [Security Audit](docs/security.md) | Vulnerability findings, risk register, compliance notes |
-| [PRD](PRD.md) | Functional requirements and user stories |
+
 | [Citations](docs/citations.md) | Market size figures and research references |
 
 ## Getting Started
