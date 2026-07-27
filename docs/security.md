@@ -77,7 +77,8 @@ The role state lives entirely in the browser. There is no server-side session va
 | **Risk** | **Critical** — OWASP A03: Injection |
 
 The `/api/calculate` route accepts `baselineKwh`, `actualKwh`, and `emissionFactor` from `req.body` with no type checks, range checks, or sanitisation.
-- **Fix:** Use `zod` or `joi` for schema validation. Clamp emission factors to known regulatory ranges (0.001–2.0). Reject negative values.
+- **Attack vector:** A malicious actor could send `baselineKwh: 999999999` or `emissionFactor: -1` to generate fraudulently inflated or negative carbon credits without any server-side rejection.
+- **Fix:** Use `zod` or `joi` for schema validation. Clamp emission factors to known regulatory ranges (e.g., 0.001–2.0). Reject negative values outright.
 
 ---
 
