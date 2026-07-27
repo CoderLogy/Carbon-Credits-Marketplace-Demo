@@ -47,6 +47,9 @@ As requested in the project deliverables, the following items outline the known 
 ## 9. Systemic Vision Limitations
 - **Regulatory Risk:** Stringent KYC and AML compliance mandates, acquiring ISO security certifications, and navigating strict financial regulatory oversight for tokenized asset trading.
 - **Registry Integration Hurdle:** Scaling the platform requires massive upfront adoption of the data pipeline by Project Developers before network effects sufficiently incentivize legacy registries (Verra/Gold Standard) to integrate their APIs directly with our smart contracts.
+- **Hardware Oracle Risk:** The prototype assumes the integrity of the raw energy data at the point of entry. If IoT sensors or smart meters are physically tampered with before data reaches the processing layer, the resulting credits are compromised. Future integrations require secure, edge-signed hardware proofs (e.g., ARM TrustZone TEEs) to guarantee source data fidelity.
+- **Registry Alignment Risk:** Any divergence between a credit's status on the platform and its status on the external registry (Verra, Gold Standard) creates a compliance breach. If a credit appears active on the platform but has been retired or revoked externally, any subsequent trade would constitute a fraudulent transaction. The production architecture requires a real-time registry reconciliation layer to detect and suspend affected credits immediately.
+- **Assumptions:** This prototype assumes registries such as Verra or Gold Standard will grant API-level integration once transaction volume justifies it, that buildings already have utility-meter-level consumption data available at IPMVP Option C granularity, and that at least one accredited VVB is willing to partner ahead of a full registry relationship.
 
 ---
 📖 [README](README.md) · 🏗️ [Architecture](docs/architecture.md) · 🔐 [Security Audit](docs/security.md) · 🚀 [Future Architecture](docs/architecture-future.md)

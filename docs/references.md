@@ -71,3 +71,23 @@ This document lists all libraries, standards, protocols, and frameworks used or 
 | [Hyperledger Fabric](https://www.hyperledger.org/projects/fabric) | Referenced in the production architecture as the permissioned VVB audit chain |
 | [IPFS / Arweave](https://ipfs.tech/) | Referenced in the production architecture for immutable off-chain evidence storage |
 | [Gnosis Safe](https://safe.global/) | Referenced in the security audit as the recommended multi-sig wallet for the Admin minting role |
+
+---
+
+## Academic & Industry Research (Cited in Written Proposal)
+
+These sources were referenced during research for the written proposal submitted alongside this prototype.
+
+| # | Reference |
+|---|-----------|
+| 1 | Vaccargiu, Gianluca, et al. "Blockchain-Oriented Software Engineering Architecture for Carbon Credit Certification." *arXiv*, 23 Jan. 2026. https://arxiv.org/pdf/2601.13772 |
+| 2 | "Core Carbon Principles & Carbon Credit Ratings Explained." *Integrity Council for the Voluntary Carbon Market (ICVCM)*. https://icvcm.org/core-carbon-principles-and-carbon-credit-ratings-complementary-tools-for-a-maturing-market/ |
+| 3 | Ladislaw, Sarah, et al. "All That Glitters Is Not Green." *Center for Strategic and International Studies (CSIS)*. https://csis.org/analysis/all-glitters-not-green |
+| 4 | Bertoldi, Paolo, and Silvia Rezessy. *Tradable Certificates for Energy Savings (White Certificates)*. European Commission Joint Research Centre, 2006. https://publications.jrc.ec.europa.eu/repository/bitstream/JRC32865/2865-white_cert_report_final.pdf |
+| 5 | *Tokenization for Net Zero*. Global Digital Finance (GDF), 7 May 2025. https://gdf.io/wp-content/uploads/2020/12/GDF-Report-Tokenization-For-Net-Zero-070525.pdf |
+| 6 | *Offsets and RECs: What's the Difference?* United States Environmental Protection Agency (EPA), Mar. 2018. https://epa.gov/sites/default/files/2018-03/documents/gpp_guide_recs_offsets.pdf |
+| 7 | *The Voluntary Carbon Market Explained*. VCM Primer, Dec. 2023. https://vcmprimer.org/wp-content/uploads/2023/12/vcm-explained-full-report.pdf |
+| 8 | Ecosystem Marketplace. *State of the Voluntary Carbon Market 2025*. Forest Trends, 2025. https://forest-trends.org/publications/state-of-the-voluntary-carbon-market-2025 |
+| 9 | "Voluntary Carbon Market Size, Share & Trends Analysis Report, 2030." *Grand View Research*, 2024. https://grandviewresearch.com/industry-analysis/voluntary-carbon-market |
+| 10 | Xpansiv. "CBL — The World's Largest Spot Exchange for Environmental Commodities." https://xpansiv.com |
+| 11 | Anthropic. (2025). *Claude*. https://claude.ai |
