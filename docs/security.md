@@ -77,7 +77,7 @@ The role state lives entirely in the browser. There is no server-side session va
 | **Risk** | **Critical** — OWASP A03: Injection |
 
 The `/api/calculate` route accepts `baselineKwh`, `actualKwh`, and `emissionFactor` from `req.body` with no type checks, range checks, or sanitisation.
-- **Attack vector:** A malicious actor could send `baselineKwh: 999999999` or `emissionFactor: -1` to generate fraudulently inflated or negative carbon credits without any server-side rejection.
+- **Attack vector:** A malicious actor could send `baselineKwh: 999999999` or `emissionFactor: -1` to generate fraudulently inflated or negative carbon credits without any resistance from the server.
 - **Fix:** Use `zod` or `joi` for schema validation. Clamp emission factors to known regulatory ranges (e.g., 0.001–2.0). Reject negative values outright.
 
 ---
@@ -190,6 +190,12 @@ The random tamper flag (`(Tampered)` suffix) is injected purely in the browser. 
 | Impact | Medium (2) — exposes internal file paths and library versions |
 | **Risk** | **Medium** — OWASP A09: Security Logging and Monitoring Failures |
 
+```ts
+} catch (e) {
+  console.error("Failed to fetch backend data", e);
+}
+```
+- **Attack vector:** Full stack traces and internal file paths are currently returned in API error responses. An attacker can use these to map the server's directory structure and library versions, enabling more targeted follow-up attacks.
 - **Fix:** Centralise error handling middleware. Return generic `{ error: 'Internal Server Error' }` to the client. Log detailed errors server-side only.
 
 ---
@@ -212,6 +218,10 @@ The random tamper flag (`(Tampered)` suffix) is injected purely in the browser. 
 | Impact | Medium (2) — information leakage and storage bloat |
 | **Risk** | **Medium** — OWASP A09: Security Logging and Monitoring Failures |
 
+```ts
+JSON.stringify(req.body) // stored in calculations table
+```
+- **Attack vector:** An attacker can send arbitrary extra fields in the request body (e.g., `{ "__proto__": {...} }` or oversized JSON blobs), which are stored verbatim in the database. This can be exploited for prototype pollution, storage exhaustion, or leaking injected data through future API reads.
 - **Fix:** Store only the known-good subset: `{ buildingId, periodStart, periodEnd, baselineKwh, actualKwh, emissionFactor }`.
 
 ---
