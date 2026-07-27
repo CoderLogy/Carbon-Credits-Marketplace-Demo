@@ -22,7 +22,7 @@ Our commercial strategy focuses on two areas:
 
 ## System Architecture
 
-### Current Implementation: End-to-End Traceability
+### Current Implementation
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -69,7 +69,7 @@ Our commercial strategy focuses on two areas:
 | Infra | Kubernetes (EKS) + Terraform | Container orchestration and IaC |
 | Observability | Prometheus + Grafana + Cloudflare WAF | Metrics, logging, DDoS protection |
 
-> **Ecosystem Context:** While EclimAi is a standalone prototype, a full production deployment could integrate with open-source tools like [Hedera Guardian](https://github.com/hashgraph/guardian) (for generic dMRV policy-as-code) and [Thallo](https://www.thallo.io) (for Verra-compliant registry bridging) to accelerate development. In such a stack, EclimAi would operate as the vertical application layer, providing IPMVP-specific energy calculations, IoT hardware integrations, an AI sanitization pipeline, and a native marketplace on top.
+> **Ecosystem Context:** A full production deployment could integrate with open-source tools like [Hedera Guardian](https://github.com/hashgraph/guardian) (for generic dMRV policy-as-code) and [Thallo](https://www.thallo.io) (for Verra-compliant registry bridging) to accelerate development. In such a stack, this prototype's vertical application layer — IPMVP-specific energy calculations, IoT hardware integrations, an AI sanitization pipeline, and a native marketplace — would sit on top.
 
 ## Documentation
 
@@ -80,7 +80,7 @@ Our commercial strategy focuses on two areas:
 | [Known Limitations](known-limitations.md) | Prototype scope, simulation disclaimers |
 | [Security Audit](docs/security.md) | Vulnerability findings, risk register, compliance notes |
 
-| [Citations](docs/citations.md) | Market size figures and research references |
+| [References](docs/references.md) | Libraries, standards, and frameworks cited in this project |
 
 ## Getting Started
 
