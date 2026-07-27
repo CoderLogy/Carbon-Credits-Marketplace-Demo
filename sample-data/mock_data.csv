@@ -1,0 +1,11 @@
+building_name,location,area_sqft,building_type,period_start,period_end,baseline_kwh,actual_kwh,emission_factor,integrity_hash
+Dublin Innovation Centre,Dublin Ireland,50000,office,2025-01-01,2025-12-31,100000,80000,0.2241,0x7a480c2c3182
+London Tech Hub,London UK,75000,office,2025-01-01,2025-12-31,200000,150000,0.1280,0x56e060d2b1f8
+Berlin Factory,Berlin Germany,100000,industrial,2025-01-01,2025-12-31,500000,420000,0.3000,0xd3b40a47c3f3
+Paris Retail Complex,Paris France,30000,retail,2025-01-01,2025-12-31,120000,95000,0.0500,0x1ea26aa4b13d
+Madrid Logistics,Madrid Spain,150000,warehouse,2025-01-01,2025-12-31,350000,290000,0.1800,0x06340c19b22a
+Rome Tech Campus,Rome Italy,80000,office,2025-01-01,2025-12-31,210000,170000,0.2500,0x6e9ee06ca501
+Amsterdam Data Center,Amsterdam NL,40000,datacenter,2025-01-01,2025-12-31,800000,680000,0.2000,0x8b320d41f39c
+Vienna BioLab,Vienna Austria,60000,laboratory,2025-01-01,2025-12-31,300000,240000,0.1400,0x4c8a2e55d11b
+Stockholm Eco Office,Stockholm Sweden,45000,office,2025-01-01,2025-12-31,90000,75000,0.0100,0x9f110c22e44a
+Copenhagen Maritime,Copenhagen Denmark,70000,industrial,2025-01-01,2025-12-31,280000,210000,0.1100,0x2a330b66c88f
